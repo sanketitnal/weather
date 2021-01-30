@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<style>
+			.alert {
+			  padding: 20px;
+			  background-color: #ffcc00;
+			  color: white;
+			}
+
+			.closebtn {
+			  margin-left: 15px;
+			  color: white;
+			  font-weight: bold;
+			  float: right;
+			  font-size: 22px;
+			  line-height: 20px;
+			  cursor: pointer;
+			  transition: 0.3s;
+			}
+
+			.closebtn:hover {
+			  color: black;
+			}
+		</style>
+
+		<meta charset="UTF-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.00, maximum-scale=1.00, minimum-scale=1.00, user-scalable=no" />
+
+		
+		<title> Weather </title>
+
+		<!-- Loading third party fonts -->
+		<link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
+		<link href="../static/fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+		<!-- Loading main css file -->
+		<link rel="stylesheet" href="../static/style.css">
+
+	</head>
+
+
+	<body>
+		
+		<div class="site-content">
+			<div class="site-header">
+				<div class="container">
+					<a href="index.html" class="branding">
+						<img src="../static/images/logo.png" alt="" class="logo">
+						<div class="logo-type">
+							<h1 class="site-title">Weather</h1>
+						</div>
+					</a>
+				</div>
+			</div> <!-- .site-header -->
+
+			
+			{% for message in get_flashed_messages() %}
+						<div class="alert">
+  							<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  							<super>{{ message }}</super>
+						</div>
+			{% endfor %}
+
+
+			<div class="hero" data-bg-image="../static/images/banner.png">
+
+				<div class="container">
+
+					<form method="POST" class="find-location">
+						{{ form.hidden_tag() }}
+						{{ form.city() }} <br>
+						{{ form.country() }}
+						{{ form.submit() }}
+					</form>
+
+				</div>
+			</div>
+			<div class="forecast-table">
+				<div class="container">
+					<div class="forecast-container">
+						<div class="today forecast">
+							<div class="forecast-header" style="border: 0px solid white; min-height: 41px">
+								<div class="day">{{ weather["current"]["day_of_week"] }}</div>
+								<div class="date">{{ weather["current"]["date_summary"] }}</div>
+							</div> 
+							<div class="forecast-content">
+								<div class="location">{{ city }}</div>
+								<div class="degree">
+									<div class="num">{{ weather["current"]["temp"] }}<sup>o</sup>C</div>
+									<div class="forecast-icon">
+										<img src="../static/images/icons/{{weather["current"]["icon"]}}.svg" alt="" width=60>
+									</div>	
+								</div>
+								<span><img src="../static/images/icon-humidity.png" alt="">{{ weather["current"]["humidity"] }}%</span>
+								<span><img src="../static/images/icon-wind.png" alt="">{{ weather["current"]["wind_speed"] }}km/h</span>
+								<span><img src="../static/images/icon-compass.png" alt="">{{ weather["current"]["wind_direction"] }}</span>
+							</div>
+						</div>
+
+
+						{% for i in ["0", "1", "2", "3", "4", "5"] %}
+						<div class="forecast">
+							<div class="forecast-header">
+								<div class="day"> {{ weather[i]["day"] }} </div>
+							</div> 
+							<div class="forecast-content">
+								<div class="forecast-icon">
+									<img src="../static/images/icons/{{ weather[i]["icon"] }}.svg" alt="" width=48>
+								</div>
+								<div class="degree" style="text-overflow:hidden;">{{ weather[i]["temp_max"] }}<sup>o</sup>C</div>
+								<small>{{ weather[i]["temp_min"] }}<sup>o</sup>C</small>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+
+				<div class="fullwidth-block">
+					
+				</div>
+
+	</body>
+
+</html>
