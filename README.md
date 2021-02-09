@@ -13,3 +13,6 @@ Windows - `$venv\Scripts\activate`
 ![Image of weather](https://github.com/sanketitnal/weather/blob/main/static/weather.png)
 
 Open to bug reports
+
+@credits
+Frontend -> Themezy: `https://www.themezy.com/`
